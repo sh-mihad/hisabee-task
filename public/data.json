@@ -1,0 +1,167 @@
+{
+	"info": {
+		"_postman_id": "9ae57db7-efcd-41fe-bd9a-0e70165d70ee",
+		"name": "Hishabee React Exam",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14497889"
+	},
+	"item": [
+		{
+			"name": "Get All Accoutn",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://distribution.hishabee.business/api/text/accounts",
+					"protocol": "https",
+					"host": [
+						"distribution",
+						"hishabee",
+						"business"
+					],
+					"path": [
+						"api",
+						"text",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Account Create",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"account_type\" : \"BANK\", //Must Be UPPER CASE (CASH,BKASH,ROCKET,NAGAD,UPAY,BANK,OTHERS)\n    \"account_name\" : \"BANK\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://distribution.hishabee.business/api/text/accounts",
+					"protocol": "https",
+					"host": [
+						"distribution",
+						"hishabee",
+						"business"
+					],
+					"path": [
+						"api",
+						"text",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cash In/Out",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"adjustment_type\": \"CASH_OUT\", //CASH_OUT or CASH_IN\n    \"amount\": 10,\n    \"charge\": 1,\n    \"note\": null\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://distribution.hishabee.business/api/text/account/:account_id/adjustment",
+					"protocol": "https",
+					"host": [
+						"distribution",
+						"hishabee",
+						"business"
+					],
+					"path": [
+						"api",
+						"text",
+						"account",
+						":account_id",
+						"adjustment"
+					],
+					"variable": [
+						{
+							"key": "account_id",
+							"value": "7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account Transaction Details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://distribution.hishabee.business/api/text/account/:account_id",
+					"protocol": "https",
+					"host": [
+						"distribution",
+						"hishabee",
+						"business"
+					],
+					"path": [
+						"api",
+						"text",
+						"account",
+						":account_id"
+					],
+					"variable": [
+						{
+							"key": "account_id",
+							"value": "7"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
