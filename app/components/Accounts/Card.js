@@ -7,11 +7,13 @@ import bkash from "../../assests/bkash.png"
 import upay from "../../assests/upay.png"
 import bank from "../../assests/bank.png"
 import others from "../../assests/others.png"
+import { useDispatch } from 'react-redux';
+import { sideBarStatus } from '@/app/fetures/sidebarSlice/sidebarSlice';
 
 
 const Card = ({account}) => {
 
-    
+    const dispatch = useDispatch()
     const {type,balance,account_name} = account
 
     
@@ -33,6 +35,10 @@ const Card = ({account}) => {
     accountLogo = others
    }
 
+   const handleSidebar = ()=>{
+    dispatch(sideBarStatus("cashInOut"))
+   }
+
     return (
         <div onMouseEnter={() => setButton(true)} onMouseLeave={() => setButton(false)} className='p-5 bg-white w-full rounded-lg hover:shadow-lg duration-150 flex justify-between'>
             <div>
@@ -40,7 +46,7 @@ const Card = ({account}) => {
                 <p className='my-3 text-gray-400'>{account_name}</p>
                 <h1 className='text-2xl font-bold'><span>৳</span> {balance}</h1>
             </div>
-            <label htmlFor="add-account" hidden={!button} className='bg-black px-5 py-3 rounded-md text-white h-14'>Cash In/Out</label>
+            <label onClick={handleSidebar} htmlFor="add-account" hidden={!button} className='bg-black px-5 py-3 rounded-md text-white h-14'>Cash In/Out</label>
         </div>
     );
 };

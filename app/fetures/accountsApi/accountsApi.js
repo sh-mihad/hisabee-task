@@ -14,24 +14,13 @@ const accountsApi = apiSlice.injectEndpoints({
                 body: data
             }),
 
-            // silently update catch data without reload
-            // async onQueryStarted({ data }, { dispatch, queryFulfilled }) {
-            //     try {
-            //         const accountData = await queryFulfilled
-            //         dispatch(apiSlice.util.updateQueryData("getAccounts", undefined, (draft) => {
-            //             draft.push(accountData.data)
-            //         }))
-            //     } catch (err) {
-
-            //     }
-            // }
-
             async onQueryStarted({ data }, { dispatch, queryFulfilled }) {
                 try {
                     const accountData = await queryFulfilled
+                    console.log(accountData);
                     const patchResult = dispatch(
                         apiSlice.util.updateQueryData('getAccounts', undefined, (draft) => {
-                            draft.push(accountData.data)
+                            draft.data.push(accountData.data)
 
                         })
                     )

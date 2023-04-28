@@ -10,6 +10,7 @@ import upayLogo from "../../assests/upay.png"
 import othersLogo from "../../assests/others.png"
 import { useAddAccountMutation } from '@/app/fetures/accountsApi/accountsApi';
 import CashInOutCard from './CashInOutCard';
+import { useDispatch, useSelector } from 'react-redux';
 const accountTypeArr = [
     {
         id: 1,
@@ -46,12 +47,15 @@ const Accounts = () => {
 
     const [addAccount, { data, isLoading, isError, error: addAccountError }] = useAddAccountMutation()
 
+    const { value } = useSelector(state => state.sidebar)
+    console.log(value);
+
     const [accountType, setAccountType] = useState("")
     const [name, setName] = useState("")
-    const [cashState,setCashState]=useState("")
+    const [cashState, setCashState] = useState("")
     console.log(cashState);
     useEffect(() => {
-        
+
     }, [data])
 
     const handleSubmit = (e) => {
@@ -63,8 +67,6 @@ const Accounts = () => {
         addAccount(accountData)
 
     }
-
-
 
 
     return (
@@ -80,56 +82,65 @@ const Accounts = () => {
             <div className="drawer-side">
                 <label htmlFor="add-account" className="drawer-overlay"></label>
                 <div className="menu p-4 w-5/12 bg-base-100 text-base-content">
-                    {/* <!-- Sidebar content here --> */}
-                    {/* <h2 className='text-2xl  font-bold my-5'>Add an Account</h2>
-                    <hr />
-                    <p className='my-3'>Select Accont</p>
 
-                    <div className='grid grid-cols-1 lg:grid-cols-3 gap-5'>
+                    {
+                        value === "addAccount" ?
+                            <>
+                                {/* <!-- Sidebar content here --> */}
+                                <h2 className='text-2xl  font-bold my-5'>Add an Account</h2>
+                                <hr />
+                                <p className='my-3'>Select Accont</p>
 
-                        {
-                            accountTypeArr.map(account => <AddAccountItem key={account.id} accountType={accountType} setAccountType={setAccountType} account={account} />)
-                        }
-                    </div> */}
+                                <div className='grid grid-cols-1 lg:grid-cols-3 gap-5'>
 
-                    {/*Account Digits  */}
-                    {/* <form onSubmit={handleSubmit}>
-                        <div className="form-control w-full  my-5">
-                            <label className="label text-2xl font-bold">Account name ( Up to 10 Digits)</label><input type="text" placeholder="Type here" value={name} onChange={()=>setName(event.target.value)} className="input input-bordered w-full " />
-                        </div>
+                                    {
+                                        accountTypeArr.map(account => <AddAccountItem key={account.id} accountType={accountType} setAccountType={setAccountType} account={account} />)
+                                    }
+                                </div>
 
-                        <hr className='mt-24' />
-                        <div className='flex gap-3 justify-end my-5'>
-                            <button className='px-7 py-3 border border-black text-center rounded-md hover:bg-black hover:text-white duration-300'>Cnacel</button>
+                                {/*Account Digits  */}
+                                <form onSubmit={handleSubmit}>
+                                    <div className="form-control w-full  my-5">
+                                        <label className="label text-2xl font-bold">Account name ( Up to 10 Digits)</label><input type="text" placeholder="Type here" value={name} onChange={() => setName(event.target.value)} className="input input-bordered w-full " />
+                                    </div>
 
-                            <button className='px-7 py-3 border bg-black text-white  text-center rounded-md  duration-300'>Save</button>
+                                    <hr className='mt-24' />
+                                    <div className='flex gap-3 justify-end my-5'>
+                                        <button className='px-7 py-3 border border-black text-center rounded-md hover:bg-black hover:text-white duration-300'>Cnacel</button>
 
-                        </div>
-                    </form> */}
+                                        <button className='px-7 py-3 border bg-black text-white  text-center rounded-md  duration-300'>Save</button>
 
-                    <div>
-                        <h2 className='text-2xl  font-bold my-5'>Cash In/Out</h2>
-                        <hr />
-                        <CashInOutCard />
-                        <form onSubmit={handleSubmit}>
-                            <div className="btn-group">
-                                <button  onClick={()=>setCashState("cashIn")} className={`px-7 py-3 border border-black text-center rounded-md hover:bg-black hover:text-white duration-300 ${cashState==="cashIn" && "bg-black text-white"}`}>Cash In</button>
+                                    </div>
+                                </form>
+                            </>
 
-                                <button onClick={()=>setCashState("cashOut")} className={`px-7 py-3 border border-black text-center rounded-md hover:bg-black hover:text-white duration-300 ${cashState==="cashOut" && "bg-black text-white"}`}>Cash Out</button>
-                            </div>
-                            <div className="form-control w-full  my-5">
-                                <label className="label text-2xl font-bold">Cash in ammount</label><input type="text" placeholder="Type here" value={name} onChange={() => setName(event.target.value)} className="input input-bordered w-full " />
-                            </div>
+                            :
+                            <>
+                                <div>
+                                    <h2 className='text-2xl  font-bold my-5'>Cash In/Out</h2>
+                                    <hr />
+                                    <CashInOutCard />
+                                    <form onSubmit={handleSubmit}>
+                                        <div className="btn-group">
+                                            <button onClick={() => setCashState("cashIn")} className={`px-7 py-3 border border-black text-center rounded-md hover:bg-black hover:text-white duration-300 ${cashState === "cashIn" && "bg-black text-white"}`}>Cash In</button>
 
-                            <hr className='mt-24' />
-                            <div className='flex gap-3 justify-end my-5'>
-                                <button className='px-7 py-3 border border-black text-center rounded-md hover:bg-black hover:text-white duration-300'>Cnacel</button>
+                                            <button onClick={() => setCashState("cashOut")} className={`px-7 py-3 border border-black text-center rounded-md hover:bg-black hover:text-white duration-300 ${cashState === "cashOut" && "bg-black text-white"}`}>Cash Out</button>
+                                        </div>
+                                        <div className="form-control w-full  my-5">
+                                            <label className="label text-2xl font-bold">Cash in ammount</label><input type="text" placeholder="Type here" value={name} onChange={() => setName(event.target.value)} className="input input-bordered w-full " />
+                                        </div>
 
-                                <button type='submit' className='px-7 py-3 border bg-black text-white  text-center rounded-md  duration-300'>Add</button>
+                                        <hr className='mt-24' />
+                                        <div className='flex gap-3 justify-end my-5'>
+                                            <button className='px-7 py-3 border border-black text-center rounded-md hover:bg-black hover:text-white duration-300'>Cnacel</button>
 
-                            </div>
-                        </form>
-                    </div>
+                                            <button type='submit' className='px-7 py-3 border bg-black text-white  text-center rounded-md  duration-300'>Add</button>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </>
+                    }
                 </div>
             </div>
 
