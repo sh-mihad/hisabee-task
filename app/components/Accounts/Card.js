@@ -11,7 +11,7 @@ import others from "../../assests/others.png"
 
 const Card = ({account}) => {
 
-    console.log(account);
+    
     const {type,balance,account_name} = account
 
     
@@ -19,15 +19,15 @@ const Card = ({account}) => {
    
 
     let accountLogo ="";
-   if(account_name === "BKASH"){
+   if(type === "BKASH"){
     accountLogo = bkash
-   }else if(account_name === "BANK"){
+   }else if(type === "BANK"){
     accountLogo = bank
-   }else if(account_name === "ROCKET"){
+   }else if(type === "ROCKET"){
     accountLogo = rocekt
-   }else if(account_name === "NAGAD"){
+   }else if(type === "NAGAD"){
     accountLogo = nagad
-   }else if (account_name === "UPAY"){
+   }else if (type === "UPAY"){
     accountLogo = upay
    }else{
     accountLogo = others
@@ -40,7 +40,7 @@ const Card = ({account}) => {
                 <p className='my-3 text-gray-400'>{account_name}</p>
                 <h1 className='text-2xl font-bold'><span>৳</span> {balance}</h1>
             </div>
-            <button hidden={!button} className='bg-black px-5 py-3 rounded-md text-white h-14'>Cash In/Out</button>
+            <label htmlFor="add-account" hidden={!button} className='bg-black px-5 py-3 rounded-md text-white h-14'>Cash In/Out</label>
         </div>
     );
 };

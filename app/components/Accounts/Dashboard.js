@@ -8,7 +8,7 @@ import { useGetAccountsQuery } from '@/app/fetures/accountsApi/accountsApi';
 
 const Dashboard = () => {
     const {data:accounts,isLoading,isError} = useGetAccountsQuery()
-    console.log(accounts);
+    // console.log(accounts?.data);
 
     let content = null
     if (isLoading) {
@@ -22,7 +22,7 @@ const Dashboard = () => {
       }
 
     return (
-        <div className='bg-[#f5f5f5] h-screen p-7 '>
+        <div className='bg-[#f5f5f5]  p-7 '>
             <div className='block lg:flex w-full gap-5  '>
                 <Chart />
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-5 w-full lg:w-7/12'>
